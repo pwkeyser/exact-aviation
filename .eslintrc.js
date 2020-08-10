@@ -1,0 +1,28 @@
+module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+  },
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
+  extends: [
+    '@nuxtjs',
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'prettier/vue',
+    'plugin:prettier/recommended',
+  ],
+  plugins: ['prettier'],
+  // add your custom rules here
+  rules: {
+    semi: [2, 'never'],
+    'vue/max-attributes-per-line': 'off',
+    'prettier/prettier': ['error', { semi: false }],
+    'no-console': 'off',
+  },
+  globals: {
+    $nuxt: true,
+  },
+}
