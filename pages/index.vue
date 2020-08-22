@@ -88,8 +88,13 @@ export default {
   box-shadow: 0 2px 5px #99fe00;
 }
 
+.NavItems {
+  text-align: center;
+  width: 100px;
+}
+
 .NavBarGap {
-  height: 120px;
+  height: 100px;
 }
 
 .GreyColour {

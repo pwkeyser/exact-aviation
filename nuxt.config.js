@@ -10,8 +10,8 @@ export default {
    */
   target: 'static',
   router: {
-    // base: '/exact-aviation/'
-    base: '/',
+    base: '/exact-aviation/'
+    // base: '/',
   },
   /*
    ** Headers of the page
