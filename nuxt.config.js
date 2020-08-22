@@ -10,7 +10,8 @@ export default {
    */
   target: 'static',
   router: {
-    base: '/exact-aviation/'
+    // base: '/exact-aviation/'
+    base: '/',
   },
   /*
    ** Headers of the page
@@ -37,7 +38,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~plugins/vue-scrollto.js'],
+  plugins: ['~plugins/vue-scrollto.js', '@/plugins/google-maps'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -56,7 +57,7 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-	  ['nuxt-gmaps', {key: 'AIzaSyArGpMh00oihyyGwLiuKqFFztNtlCWiFtU'}],
+    // ['nuxt-gmaps', {key: 'AIzaSyArGpMh00oihyyGwLiuKqFFztNtlCWiFtU'}],
   ],
   /*
    ** Build configuration

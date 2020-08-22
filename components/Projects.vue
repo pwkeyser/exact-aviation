@@ -1,37 +1,18 @@
 <template>
   <div id="projects">
-    <div class="NavBarGap" />
+    <div class="NavBarGap GreyColour" />
     <b-jumbotron :header="headerText" class="NoPaddingMargins">
-      <GMap
-        ref="gMap"
-        language="en"
-        :cluster="{ options: { styles: clusterStyle } }"
-        :center="{ lat: locations[0].lat, lng: locations[0].lng }"
-        :options="{ fullscreenControl: false, styles: mapStyle }"
-        :zoom="2"
-      >
-        <GMapMarker
-          v-for="location in locations"
-          :key="location.id"
-          :position="{ lat: location.lat, lng: location.lng }"
-          :options="{
-            icon:
-              location === currentLocation ? pins.selected : pins.notSelected,
-          }"
-          @click="currentLocation = location"
-        >
-          <GMapInfoWindow :options="{ maxWidth: 300 }">
-            <b>{{ location.name }}</b>
-            <br />
-            <br />
-            <code>
-              Lat: {{ location.lat }},
-              <br />
-              Lng: {{ location.lng }}
-            </code>
-          </GMapInfoWindow>
-        </GMapMarker>
-      </GMap>
+      <div class="pre-formatted">
+        {{ descriptionText }}
+      </div>
+      <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="2">
+        <gmap-marker
+          v-for="(item, index) in markers"
+          :key="index"
+          :position="item.position"
+          @click="center = item.position"
+        />
+      </gmap-map>
     </b-jumbotron>
   </div>
 </template>
@@ -43,202 +24,27 @@ export default {
   data() {
     return {
       headerText: 'Current Projects',
-      clusterStyle: [
-        {
-          url:
-            'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
-          width: 56,
-          height: 56,
-          textColor: '#fff',
-        },
-      ],
-      currentLocation: {},
-      locationsVisibleOnMap: '',
-      locations: [
-        {
-          lat: 45.81444,
-          lng: 15.97798,
-          name: 'Zagreb',
-        },
-        {
-          lat: 46.056946,
-          lng: 14.505751,
-          name: 'Ljubljana',
-        },
-        {
-          lat: 47.497913,
-          lng: 19.040236,
-          name: 'Budapest',
-        },
-        {
-          lat: 48.210033,
-          lng: 16.363449,
-          name: 'Vienna',
-        },
-        {
-          lat: 52.520008,
-          lng: 13.404954,
-          name: 'Berlin',
-        },
-        {
-          lat: 41.906204,
-          lng: 12.507516,
-          name: 'Rome',
-        },
-        {
-          lat: 50.073658,
-          lng: 14.41854,
-          name: 'Prague',
-        },
-        {
-          lat: 48.148598,
-          lng: 17.107748,
-          name: 'Bratislava',
-        },
-      ],
-      pins: {
-        selected:
-          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHUSURBVHgB5VU7SwNBEJ7LmZBgMC+UdKKx0MZCG2srwcbCB2glpFDQ3to/IegvSAIWPrBJIySlipUKKqYLaHJ3iWIelzu/DTk8j71H7MQPltmZnflmZ3b3juivQ3BzCIfDI4FAYBvTRV3XR7tBglCCOIP9oFwuv/46QSwWWwfZIaaDNi7vGOlqtZqhfhPE4/EViAy5V6ljE8uVSuXYc4JkMjncarUeMR0ib5Db7fZEvV6vWBd8PG+Q73LIFYyj3lAsa1G/37/D4+JWgPbcQkybd9jpdGYVRXlmSiQSSYmieMWmhgMuwI0kSTPkpQJgzKJnDfJuKYryBJH7sVNBSPGI7BKoFl3n+GguMY4JHiz6GtoybiisRczmEtPFAM+Ifl6i5DmTKYqeX+Nssj19lUz9N2J4XNxDTiQSkwi4oz6ADU3hLdxb7dwW9RyL5B0FHrltAgZUsEce4eRrmwB3ugCRJ3fk4VvsOwEDHtcWxKeDy4emaWmHdRKdFpvNphQKhdhFmOet42D3sftTJw7X/wHgw/U8h1ywkJ/gYJeI/wi/g8kdmqqqG5Alk62Er+emG7nXBFSr1aroNSNknwOVzZnNS6xIHtFoNF6CweAbpheyLOfo3+ALfrSuzJ1F8EsAAAAASUVORK5CYII=',
-        notSelected:
-          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABHElEQVR42uVVyw4BMRQdC98lsbPwG5YSH+BzWFtLZilh0oQgFh6J54IwBmGYtrfaBREdcTvDhpM0adrec3rb+7Csn8fRdrLg7VzBubhDzmHrudRuZ2KRs/miLd6AThfNaOTTGRFIsMm8bkSuXBeGoLVaGi0g39wLI4GTf1EjdE/+E1pAAGgEAenkb/tBo1vQFUDgBbSbny6al77uSQwB/6wJSNHoAo8xj30iaYMW4Lv9wfSTpc0eH6atXtE4TKWNUS4AY2hyddY4k/lwVEZncm9QilQuBGPwnp1B5GIXGi3P0eU0c7EqKrje5hU5d7fr2P2AEJIESkNqB1XJkvhI0/GrTuqZX619tLMF/VHlfnk5/0r7ZMvVWA3rr3AF6LIMZ7PmSlUAAAAASUVORK5CYII=',
-      },
-      mapStyle: [
-        {
-          featureType: 'all',
-          elementType: 'labels.text.fill',
-          stylers: [
-            {
-              color: '#ffffff',
-            },
-          ],
-        },
-        {
-          featureType: 'all',
-          elementType: 'labels.text.stroke',
-          stylers: [
-            {
-              visibility: 'on',
-            },
-            {
-              color: '#3e606f',
-            },
-            {
-              weight: 2,
-            },
-            {
-              gamma: 0.84,
-            },
-          ],
-        },
-        {
-          featureType: 'all',
-          elementType: 'labels.icon',
-          stylers: [
-            {
-              visibility: 'off',
-            },
-          ],
-        },
-        {
-          featureType: 'administrative',
-          elementType: 'geometry',
-          stylers: [
-            {
-              weight: 0.6,
-            },
-            {
-              color: '#313536',
-            },
-          ],
-        },
-        {
-          featureType: 'landscape',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#44a688',
-            },
-          ],
-        },
-        {
-          featureType: 'poi',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#13876c',
-            },
-          ],
-        },
-        {
-          featureType: 'poi.attraction',
-          elementType: 'geometry.stroke',
-          stylers: [
-            {
-              color: '#f5e4e4',
-            },
-            {
-              visibility: 'off',
-            },
-          ],
-        },
-        {
-          featureType: 'poi.attraction',
-          elementType: 'labels',
-          stylers: [
-            {
-              visibility: 'on',
-            },
-            {
-              lightness: '14',
-            },
-          ],
-        },
-        {
-          featureType: 'poi.park',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#13876c',
-            },
-            {
-              visibility: 'simplified',
-            },
-          ],
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#067372',
-            },
-            {
-              lightness: '-20',
-            },
-          ],
-        },
-        {
-          featureType: 'transit',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#357374',
-            },
-          ],
-        },
-        {
-          featureType: 'water',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#004757',
-            },
-          ],
-        },
+      descriptionText: '',
+      center: { lat: -25.8645677, lng: 28.2409667 },
+      mapTypeId: 'terrain',
+      markers: [
+        { position: { lat: -19.9758282, lng: 23.425978 } },
+        { position: { lat: -17.8305953, lng: 25.1615299 } },
+        { position: { lat: -27.3942096, lng: 153.1196416 } },
+        { position: { lat: -13.8304448, lng: -172.0102986 } },
+        { position: { lat: 42.5745676, lng: 21.0273197 } },
+        { position: { lat: 19.114488, lng: 50.1229026 } },
+        { position: { lat: -10.6875155, lng: 40.2206478 } },
       ],
     }
   },
 }
 </script>
 
-<style></style>
+<style>
+.vue-map-container {
+  height: 500px;
+  /* max-width: 992px; */
+  width: 100%;
+}
+</style>

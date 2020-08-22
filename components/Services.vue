@@ -1,7 +1,7 @@
 <template>
   <div id="services" class="SBackground">
-    <div class="NavBarGap GreyColour" />
-    <b-jumbotron :header="headerText" class="NoPaddingMargins">
+    <div class="NavBarGap" />
+    <b-jumbotron :header="headerText" class="SBackground NoPaddingMargins">
       <div class="pre-formatted">
         {{ descriptionText }}
       </div>

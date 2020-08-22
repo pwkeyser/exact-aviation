@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" fixed="top" type="light" variant="success">
+    <b-navbar toggleable="lg" fixed="top" type="dark" variant="success">
       <b-navbar-brand href="#">
         <Logo />
       </b-navbar-brand>

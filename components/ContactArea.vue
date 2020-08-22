@@ -1,10 +1,5 @@
 <template>
   <div id="page-wrap">
-    <img
-      src="images/title.gif"
-      alt="A Nice &amp; Simple Contact Form"
-    /><br /><br />
-
     <div id="contact-area">
       <form method="post" action="contactengine.php">
         <label for="Name">Name:</label>
