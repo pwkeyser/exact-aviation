@@ -54,7 +54,8 @@ export default {
   border-color: #c1c9d8;
   box-shadow: 0 2px 5px #ccc;
   box-shadow: 0 2px 5px #99fe00;
-  max-width: 70%;
+  max-width: 100%;
+  max-width: 1000px;
   /*
   opacity: 0.7;
   height: 30%;
