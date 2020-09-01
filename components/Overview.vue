@@ -55,7 +55,7 @@ export default {
   box-shadow: 0 2px 5px #ccc;
   box-shadow: 0 2px 5px #99fe00;
   max-width: 100%;
-  max-width: 900px;
+  max-width: 850px;
   /*
   opacity: 0.7;
   height: 30%;

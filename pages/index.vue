@@ -8,10 +8,12 @@
     <why />
     <customers />
     <contact />
+    <back-to-top class="BackToTop" text="Back to top"></back-to-top>
   </div>
 </template>
 
 <script>
+import BackToTop from 'vue-backtotop'
 import Services from '~/components/Services'
 import Why from '~/components/Why'
 import Overview from '~/components/Overview'
@@ -31,6 +33,7 @@ export default {
     contact: Contact,
     projects: Projects,
     'nav-bar': NavBar,
+    'back-to-top': BackToTop,
   },
 }
 </script>
@@ -99,5 +102,19 @@ export default {
 
 .GreyColour {
   background-color: #e9ecef;
+}
+
+.vue-back-to-top .default {
+  background-color: var(--success);
+  border-radius: 5px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  width: 130px;
+}
+
+.BackToTop {
+  background-color: var(--success);
+  border-radius: 5px;
 }
 </style>
