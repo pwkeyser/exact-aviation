@@ -1,10 +1,18 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabCompletion": "onlySnippets",
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-  }
+  "vetur.validation.template": false,
+  "vetur.format.enable": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  
+  "vetur.experimental.templateInterpolationService": true,
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": true,
+  "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+  "editor.codeActionsOnSave": {
+  "source.fixAll.eslint": true
+  },
+  "eslint.enable": false,
+  "html.format.enable": true,
+  "html.format.wrapAttributes": "force-aligned",
+  "vetur.format.defaultFormatter.js": "prettier"
 }
